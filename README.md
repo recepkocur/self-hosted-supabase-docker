@@ -2,7 +2,82 @@
 
 > Son Güncelleme: 17.02.2025
 
-Bu proje, Supabase'in kendi VPS sunucumda self-hosted olarak çalıştırılması için hazırladığım Docker tabanlı bir altyapı projesidir. Supabase'in açık kaynak kodlu olması sayesinde, kendi sunucumda tam kontrol sağlayarak çalıştırabiliyorum.
+Bu proje, Supabase'in kendi VPS sunucunuzda self-hosted olarak çalıştırılması için hazırlanmış Docker tabanlı bir altyapı projesidir. Supabase'in tüm temel özelliklerini kendi kontrolünüz altında çalıştırmanıza olanak sağlar.
+
+## İçindekiler
+
+1. [Öne Çıkan Özellikler](#öne-çıkan-özellikler)
+2. [Desteklenen Servisler](#desteklenen-servisler)
+3. [Güvenlik Özellikleri](#güvenlik-özellikleri)
+4. [Performans İyileştirmeleri](#performans-iyileştirmeleri)
+5. [Monitoring ve Logging](#monitoring-ve-logging)
+6. [Yedekleme ve Felaket Kurtarma](#yedekleme-ve-felaket-kurtarma)
+7. [Neden Self-Hosted Supabase?](#neden-self-hosted-supabase)
+8. [Teknik Altyapı](#teknik-altyapı)
+9. [Yapılandırmalar](#yapılandırmalar)
+10. [Kurulum ve Yapılandırması](#kurulum-ve-yapılandırması)
+11. [Deployment](#deployment)
+12. [Komutlar](#komutlar)
+13. [Gereksinimler](#gereksinimler)
+14. [Sistem Gereksinimleri](#sistem-gereksinimleri)
+15. [Hata Ayıklama](#hata-ayıklama)
+16. [Güvenlik Sıkılaştırma](#güvenlik-sıkılaştırma)
+17. [Katkıda Bulunma](#katkıda-bulunma)
+18. [Lisans](#lisans)
+19. [Destek](#destek)
+
+## Öne Çıkan Özellikler
+
+- 🔒 **Tam Veri Kontrolü**: Verileriniz kendi sunucunuzda, sizin kontrolünüzde
+- 🚀 **Kolay Kurulum**: Docker Compose ile tek komutta ayağa kaldırma
+- 🔄 **Otomatik SSL**: Traefik ile otomatik SSL sertifika yönetimi
+- 📦 **Modüler Yapı**: İhtiyacınıza göre servisleri özelleştirme imkanı
+- 🛡️ **Güvenlik Odaklı**: JWT, API key rotasyonu ve rol tabanlı erişim kontrolü
+- 🔄 **CI/CD Entegrasyonu**: GitHub Actions ile otomatik deployment
+- 📊 **Monitoring**: Realtime izleme ve loglama altyapısı
+
+## Desteklenen Servisler
+
+- PostgreSQL Veritabanı (15.8.1)
+- Kong API Gateway (2.8.1)
+- GoTrue Auth Servisi (v2.167.0)
+- Storage API (v1.14.5)
+- Realtime (v2.34.7)
+- Edge Functions (v1.67.0)
+- PostgREST API (v12.2.0)
+- Supabase Studio UI
+
+## Güvenlik Özellikleri
+
+- SSL/TLS şifreleme (Traefik + Let's Encrypt)
+- JWT tabanlı kimlik doğrulama
+- API anahtarı rotasyonu
+- Rol tabanlı erişim kontrolü (RBAC)
+- Güvenli environment değişkeni yönetimi
+- Docker container izolasyonu
+
+## Performans İyileştirmeleri
+
+- Connection pooling optimizasyonu
+- Önbellekleme stratejileri
+- Yük dengeleme
+- Otomatik ölçeklendirme desteği
+- Query optimizasyonu
+
+## Monitoring ve Logging
+
+- Realtime sistem metrikleri
+- Detaylı log kayıtları
+- Hata izleme ve raporlama
+- Performans metrikleri
+- Kaynak kullanım istatistikleri
+
+## Yedekleme ve Felaket Kurtarma
+
+- Otomatik veritabanı yedekleme
+- Yedekleme rotasyonu
+- Hızlı geri yükleme prosedürleri
+- Veri replikasyonu seçenekleri
 
 ## Neden Self-Hosted Supabase?
 
@@ -73,6 +148,23 @@ Projede kullanılan temel bileşenler:
 - S3 uyumlu storage
 
 ## Kurulum ve Yapılandırması
+
+## Kurulum Öncesi Hazırlık
+
+1. Domain ayarları:
+   - A kaydı: api.domain.com -> Sunucu IP
+   - CNAME: \*.api.domain.com -> api.domain.com
+2. Cloudflare Ayarları:
+
+   - SSL/TLS modu: Full (strict)
+   - Edge Certificates: Aktif
+   - Always Use HTTPS: Aktif
+
+3. Güvenlik Duvarı Ayarları:
+   - HTTP (80)
+   - HTTPS (443)
+   - PostgreSQL (5432)
+     açık olmalıdır.
 
 ```bash
 git clone https://github.com/username/vps-docker-supabase
@@ -161,6 +253,71 @@ Bu kısım ihtiyaç halinde yorum satırından çıkarılarak aktif edilebilir, 
 - Domain name
 - Cloudflare hesabı
 - OpenAI API key (opsiyonel)
+
+## Sistem Gereksinimleri
+
+- RAM: Minimum 4GB (Önerilen: 8GB)
+- CPU: Minimum 2 çekirdek (Önerilen: 4 çekirdek)
+- Disk: Minimum 20GB SSD (Önerilen: 50GB SSD)
+- Port Gereksinimleri:
+  - 80/443: HTTP/HTTPS
+  - 5432: PostgreSQL
+  - 8000: Kong API Gateway
+  - 9000: Storage API
+  - 4000: Realtime API
+
+## Hata Ayıklama
+
+### Sık Karşılaşılan Hatalar
+
+1. SSL Sertifika Hataları:
+
+```bash
+docker logs supabase-traefik
+```
+
+2. Veritabanı Bağlantı Hataları:
+
+```bash
+docker logs supabase-db
+```
+
+3. API Gateway Hataları:
+
+```bash
+docker logs supabase-kong
+```
+
+### Çözüm Önerileri
+
+1. SSL Sertifika Sorunları:
+   - DNS kayıtlarını kontrol edin
+   - Cloudflare SSL modunu doğrulayın
+2. Veritabanı Sorunları:
+   - PostgreSQL loglarını kontrol edin
+   - Disk alanını kontrol edin
+3. Bağlantı Sorunları:
+   - Port çakışmalarını kontrol edin
+   - Docker network ayarlarını kontrol edin
+
+## Güvenlik Sıkılaştırma
+
+1. Network Güvenliği:
+
+   - İç ağ izolasyonu
+   - Reverse proxy güvenlik başlıkları
+   - Rate limiting kuralları
+
+2. Veritabanı Güvenliği:
+
+   - Rol tabanlı erişim kontrolü
+   - Şifreleme politikaları
+   - Audit logging
+
+3. API Güvenliği:
+   - JWT token rotasyonu
+   - API key yönetimi
+   - Request/Response validasyonu
 
 ## Katkıda Bulunma
 
