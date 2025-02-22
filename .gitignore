@@ -1,0 +1,20 @@
+# Default
+volumes/db/data
+volumes/storage
+.env
+test.http
+docker-compose.override.yml
+
+# Sensitive files
+.env
+*.pem
+*.key
+*.crt
+secrets/
+
+# Development files
+*.log
+tmp/
+
+# MacOS
+.DS_Store
