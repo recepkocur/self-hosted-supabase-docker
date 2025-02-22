@@ -1,5 +1,7 @@
 # Self-Hosted Supabase Docker
 
+> Son Güncelleme: 17.02.2025
+
 Bu proje, Supabase'in kendi VPS sunucumda self-hosted olarak çalıştırılması için hazırladığım Docker tabanlı bir altyapı projesidir. Supabase'in açık kaynak kodlu olması sayesinde, kendi sunucumda tam kontrol sağlayarak çalıştırabiliyorum.
 
 ## Neden Self-Hosted Supabase?
@@ -70,7 +72,7 @@ Projede kullanılan temel bileşenler:
 - SMTP mail servisi
 - S3 uyumlu storage
 
-## Kurulum
+## Kurulum ve Yapılandırması
 
 ```bash
 git clone https://github.com/username/vps-docker-supabase
@@ -80,7 +82,23 @@ cp .env.example .env
 
 ### .env dosyasını düzenleyin
 
-docker-compose up -d
+SELF_HOST_NAME parametresi, Traefik reverse proxy için domain adını belirtir. Bu parametre:
+
+- Sadece domain adı formatında olmalıdır (örn: api.example.com)
+- http:// veya https:// protokol belirteçleri içermemelidir
+- Alt domain kullanılabilir (örn: supabase.example.com)
+- Doğru format: api.domain.com
+- Yanlış format: https://api.domain.com
+
+Bu parametre Traefik'in SSL sertifikası yönetimi ve reverse proxy yönlendirmeleri için kullanılır. docker-compose.dev.yml dosyasında ilgili servislerin labels kısmında kullanılmaktadır.
+
+Örnek kullanım:
+
+```bash
+SELF_HOST_NAME=kong.example.com
+```
+
+docker-compose -f docker-compose.dev.yml up -d
 
 ## Deployment
 
