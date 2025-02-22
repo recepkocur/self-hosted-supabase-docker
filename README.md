@@ -1,170 +1,170 @@
 # Self-Hosted Supabase Docker
 
-> Son Güncelleme: 17.02.2025
+> Last Update: 17.02.2025
 
-Bu proje, Supabase'in kendi VPS sunucunuzda self-hosted olarak çalıştırılması için hazırlanmış Docker tabanlı bir altyapı projesidir. Supabase'in tüm temel özelliklerini kendi kontrolünüz altında çalıştırmanıza olanak sağlar.
+This project is a Docker-based infrastructure project prepared for running Supabase self-hosted on your own VPS server. It allows you to run all core features of Supabase under your own control.
 
-## İçindekiler
+## Contents
 
-1. [Öne Çıkan Özellikler](#öne-çıkan-özellikler)
-2. [Desteklenen Servisler](#desteklenen-servisler)
-3. [Güvenlik Özellikleri](#güvenlik-özellikleri)
-4. [Performans İyileştirmeleri](#performans-iyileştirmeleri)
-5. [Monitoring ve Logging](#monitoring-ve-logging)
-6. [Yedekleme ve Felaket Kurtarma](#yedekleme-ve-felaket-kurtarma)
-7. [Neden Self-Hosted Supabase?](#neden-self-hosted-supabase)
-8. [Teknik Altyapı](#teknik-altyapı)
-9. [Yapılandırmalar](#yapılandırmalar)
-10. [Kurulum ve Yapılandırması](#kurulum-ve-yapılandırması)
+1. [Key Features](#key-features)
+2. [Supported Services](#supported-services)
+3. [Security Features](#security-features)
+4. [Performance Optimizations](#performance-optimizations)
+5. [Monitoring and Logging](#monitoring-and-logging)
+6. [Backup and Disaster Recovery](#backup-and-disaster-recovery)
+7. [Why Self-Hosted Supabase?](#why-self-hosted-supabase)
+8. [Technical Infrastructure](#technical-infrastructure)
+9. [Configurations](#configurations)
+10. [Installation and Configuration](#installation-and-configuration)
 11. [Deployment](#deployment)
-12. [Komutlar](#komutlar)
-13. [Gereksinimler](#gereksinimler)
-14. [Sistem Gereksinimleri](#sistem-gereksinimleri)
-15. [Hata Ayıklama](#hata-ayıklama)
-16. [Güvenlik Sıkılaştırma](#güvenlik-sıkılaştırma)
-17. [Katkıda Bulunma](#katkıda-bulunma)
-18. [Lisans](#lisans)
-19. [Destek](#destek)
+12. [Commands](#commands)
+13. [Requirements](#requirements)
+14. [System Requirements](#system-requirements)
+15. [Troubleshooting](#troubleshooting)
+16. [Security Hardening](#security-hardening)
+17. [Contributing](#contributing)
+18. [License](#license)
+19. [Support](#support)
 
-## Öne Çıkan Özellikler
+## Key Features
 
-- 🔒 **Tam Veri Kontrolü**: Verileriniz kendi sunucunuzda, sizin kontrolünüzde
-- 🚀 **Kolay Kurulum**: Docker Compose ile tek komutta ayağa kaldırma
-- 🔄 **Otomatik SSL**: Traefik ile otomatik SSL sertifika yönetimi
-- 📦 **Modüler Yapı**: İhtiyacınıza göre servisleri özelleştirme imkanı
-- 🛡️ **Güvenlik Odaklı**: JWT, API key rotasyonu ve rol tabanlı erişim kontrolü
-- 🔄 **CI/CD Entegrasyonu**: GitHub Actions ile otomatik deployment
-- 📊 **Monitoring**: Realtime izleme ve loglama altyapısı
+- 🔒 **Full Data Control**: Your data on your server, under your control
+- 🚀 **Easy Setup**: Single command deployment with Docker Compose
+- 🔄 **Automatic SSL**: Automatic SSL certificate management with Traefik
+- 📦 **Modular Structure**: Customize services according to your needs
+- 🛡️ **Security Focused**: JWT, API key rotation and role-based access control
+- 🔄 **CI/CD Integration**: Automatic deployment with GitHub Actions
+- 📊 **Monitoring**: Realtime monitoring and logging infrastructure
 
-## Desteklenen Servisler
+## Supported Services
 
-- PostgreSQL Veritabanı (15.8.1)
+- PostgreSQL Database (15.8.1)
 - Kong API Gateway (2.8.1)
-- GoTrue Auth Servisi (v2.167.0)
+- GoTrue Auth Service (v2.167.0)
 - Storage API (v1.14.5)
 - Realtime (v2.34.7)
 - Edge Functions (v1.67.0)
 - PostgREST API (v12.2.0)
 - Supabase Studio UI
 
-## Güvenlik Özellikleri
+## Security Features
 
-- SSL/TLS şifreleme (Traefik + Let's Encrypt)
-- JWT tabanlı kimlik doğrulama
-- API anahtarı rotasyonu
-- Rol tabanlı erişim kontrolü (RBAC)
-- Güvenli environment değişkeni yönetimi
-- Docker container izolasyonu
+- SSL/TLS encryption (Traefik + Let's Encrypt)
+- JWT-based authentication
+- API key rotation
+- Role-based access control (RBAC)
+- Secure environment variable management
+- Docker container isolation
 
-## Performans İyileştirmeleri
+## Performance Optimizations
 
-- Connection pooling optimizasyonu
-- Önbellekleme stratejileri
-- Yük dengeleme
-- Otomatik ölçeklendirme desteği
-- Query optimizasyonu
+- Connection pooling optimization
+- Caching strategies
+- Load balancing
+- Automatic scaling support
+- Query optimization
 
-## Monitoring ve Logging
+## Monitoring and Logging
 
-- Realtime sistem metrikleri
-- Detaylı log kayıtları
-- Hata izleme ve raporlama
-- Performans metrikleri
-- Kaynak kullanım istatistikleri
+- Realtime system metrics
+- Detailed log records
+- Error tracking and reporting
+- Performance metrics
+- Resource usage statistics
 
-## Yedekleme ve Felaket Kurtarma
+## Backup and Disaster Recovery
 
-- Otomatik veritabanı yedekleme
-- Yedekleme rotasyonu
-- Hızlı geri yükleme prosedürleri
-- Veri replikasyonu seçenekleri
+- Automatic database backup
+- Backup rotation
+- Fast recovery procedures
+- Data replication options
 
-## Neden Self-Hosted Supabase?
+## Why Self-Hosted Supabase?
 
-Modern web ve mobil uygulamalarım için merkezi bir backend platformuna ihtiyaç duyuyorum. Supabase'in sunduğu:
+I need a centralized backend platform for my modern web and mobile applications. Supabase's offerings:
 
-- Gerçek zamanlı veritabanı
-- Kimlik doğrulama
-- Dosya depolama
+- Real-time database
+- Authentication
+- File storage
 - Edge Functions
-- Auto-API oluşturma
+- Auto-API creation
 
-gibi özellikleri kendi sunucumda barındırarak, verilerimin tam kontrolünü sağlayabiliyorum. Bu sayede:
+allow me to host these on my own server, giving me full control over my data. This allows me to:
 
-- Veri egemenliği
-- Maliyet optimizasyonu
-- Özelleştirilebilir altyapı
-- Yüksek performans
+- Data sovereignty
+- Cost optimization
+- Customizable infrastructure
+- High performance
 
-avantajlarından faydalanabiliyorum.
+advantages.
 
-## Teknik Altyapı
+## Technical Infrastructure
 
-Projede kullanılan temel bileşenler:
+The fundamental components used in the project:
 
-- Ubuntu 24.04+ VPS sunucu
+- Ubuntu 24.04+ VPS server
 - Docker 28.0.0
 - Traefik reverse proxy
-- Cloudflare DNS ve SSL
-- OpenAI API entegrasyonu
+- Cloudflare DNS and SSL
+- OpenAI API integration
 - GitHub Actions CI/CD
 
-## Yapılandırmalar
+## Configurations
 
-### 1. Traefik Yapılandırması
+### 1. Traefik Configuration
 
-- SSL sertifikalarının otomatik yönetimi
-- Reverse proxy ile güvenli yönlendirme
-- Let's Encrypt entegrasyonu
+- Automatic SSL certificate management
+- Secure routing with reverse proxy
+- Let's Encrypt integration
 
 ### 2. GitHub Actions Deployment
 
-- Main branch -> Development ortamı
-- Prod branch -> Production ortamı
-- Otomatik deployment ve rollback
-- SSH ile güvenli bağlantı
+- Main branch -> Development environment
+- Prod branch -> Production environment
+- Automatic deployment and rollback
+- Secure connection via SSH
 
-### 3. Supabase Servisleri
+### 3. Supabase Services
 
-- PostgreSQL veritabanı
-- GoTrue auth servisi
+- PostgreSQL database
+- GoTrue auth service
 - Storage API
 - Realtime
 - Edge Functions
 - PostgREST API
 
-### 4. Güvenlik Yapılandırmaları
+### 4. Security Configurations
 
-- SSL sertifikaları (Traefik + Cloudflare)
-- JWT token yönetimi
-- API key rotasyonu
+- SSL certificates (Traefik + Cloudflare)
+- JWT token management
+- API key rotation
 - Role-based access control
 
-### 5. Entegrasyonlar
+### 5. Integrations
 
-- Cloudflare DNS yönetimi
-- OpenAI API bağlantısı
-- SMTP mail servisi
-- S3 uyumlu storage
+- Cloudflare DNS management
+- OpenAI API connection
+- SMTP mail service
+- S3-compatible storage
 
-## Kurulum ve Yapılandırması
+## Installation and Configuration
 
-## Kurulum Öncesi Hazırlık
+## Pre-Installation Preparation
 
-1. Domain ayarları:
-   - A kaydı: api.domain.com -> Sunucu IP
+1. Domain settings:
+   - A record: api.domain.com -> Server IP
    - CNAME: \*.api.domain.com -> api.domain.com
-2. Cloudflare Ayarları:
+2. Cloudflare settings:
 
-   - SSL/TLS modu: Full (strict)
-   - Edge Certificates: Aktif
-   - Always Use HTTPS: Aktif
+   - SSL/TLS mode: Full (strict)
+   - Edge Certificates: Active
+   - Always Use HTTPS: Active
 
-3. Güvenlik Duvarı Ayarları:
+3. Firewall settings:
    - HTTP (80)
    - HTTPS (443)
    - PostgreSQL (5432)
-     açık olmalıdır.
+     must be open.
 
 ```bash
 git clone https://github.com/username/vps-docker-supabase
@@ -172,19 +172,19 @@ cd vps-docker-supabase
 cp .env.example .env
 ```
 
-### .env dosyasını düzenleyin
+### .env file modification
 
-SELF_HOST_NAME parametresi, Traefik reverse proxy için domain adını belirtir. Bu parametre:
+SELF_HOST_NAME parameter specifies the domain name for the Traefik reverse proxy. This parameter:
 
-- Sadece domain adı formatında olmalıdır (örn: api.example.com)
-- http:// veya https:// protokol belirteçleri içermemelidir
-- Alt domain kullanılabilir (örn: supabase.example.com)
-- Doğru format: api.domain.com
-- Yanlış format: https://api.domain.com
+- Must be in domain name format only (e.g., api.example.com)
+- Must not include http:// or https:// protocol specifiers
+- Can use subdomains (e.g., supabase.example.com)
+- Correct format: api.domain.com
+- Incorrect format: https://api.domain.com
 
-Bu parametre Traefik'in SSL sertifikası yönetimi ve reverse proxy yönlendirmeleri için kullanılır. docker-compose.dev.yml dosyasında ilgili servislerin labels kısmında kullanılmaktadır.
+This parameter is used by Traefik for SSL certificate management and reverse proxy routing. It is used in the labels of the relevant services in the docker-compose.dev.yml file.
 
-Örnek kullanım:
+Example usage:
 
 ```bash
 SELF_HOST_NAME=kong.example.com
@@ -194,38 +194,38 @@ docker-compose -f docker-compose.dev.yml up -d
 
 ## Deployment
 
-Proje, GitHub Actions üzerinden otomatik deployment sürecine sahip:
+The project has automatic deployment capabilities via GitHub Actions:
 
-- `main` branch -> Development ortamı
-- `prod` branch -> Production ortamı
+- `main` branch -> Development environment
+- `prod` branch -> Production environment
 
-Her push işleminde ilgili ortama otomatik deployment gerçekleşir.
+Automatic deployment occurs for each push to the relevant environment.
 
-## Komutlar
+## Commands
 
-### Reset İşlemi
+### Reset Operation
 
-Projeyi sıfırlamak için `reset.sh` betiği kullanılır. Bu betik:
+The `reset.sh` script is used to reset the project. This script:
 
-- Tüm Docker container'ları durdurur ve siler
-- Bind-mount edilmiş dizinleri temizler
-- .env dosyasını korur (güvenlik nedeniyle)
+- Stops and removes all Docker containers
+- Clears bind-mounted directories
+- Preserves the .env file (for security reasons)
 
-Kullanımı:
+Usage:
 
 ```bash
 ./reset.sh
 ```
 
-Not: Güvenlik nedeniyle .env dosyası reset işleminde silinmez. Eğer .env dosyasını da sıfırlamak isterseniz, reset.sh dosyasındaki ilgili yorum satırlarını kaldırabilirsiniz.
+Note: The .env file is not removed in the reset operation due to security reasons. If you also want to reset the .env file, you can remove the commented out code block (related to .env) in the reset.sh script.
 
-reset.sh dosyasındaki yorum satırına alınan kısım (.env ile ilgili), hassas verileri içeren .env dosyasının yanlışlıkla silinmesini önlemek için kapatılmıştır. Bu sayede:
+The commented out block in the reset.sh script (.env related) is kept to prevent accidental deletion of the .env file containing sensitive information. This ensures:
 
-1. Mevcut çalışan ortamın konfigürasyonu korunur
-2. Kritik API anahtarları ve şifreler güvende kalır
-3. Production ortamında yanlış konfigürasyon oluşması engellenir
+1. The existing running environment configuration is preserved
+2. Critical API keys and passwords are kept safe
+3. Production environment misconfiguration is prevented
 
-İlgili kod bloğu:
+Related code block:
 
 ```29:42:reset.sh
 # echo "Resetting .env file..."
@@ -244,89 +244,89 @@ reset.sh dosyasındaki yorum satırına alınan kısım (.env ile ilgili), hassa
 # fi
 ```
 
-Bu kısım ihtiyaç halinde yorum satırından çıkarılarak aktif edilebilir, ancak özellikle production ortamında dikkatli kullanılmalıdır.
+This block can be activated if needed, but should be used carefully in the production environment.
 
-## Gereksinimler
+## Requirements
 
-- Ubuntu 24.04+ VPS sunucu
+- Ubuntu 24.04+ VPS server
 - Docker 28.0.0+
 - Domain name
-- Cloudflare hesabı
-- OpenAI API key (opsiyonel)
+- Cloudflare account
+- OpenAI API key (optional)
 
-## Sistem Gereksinimleri
+## System Requirements
 
-- RAM: Minimum 4GB (Önerilen: 8GB)
-- CPU: Minimum 2 çekirdek (Önerilen: 4 çekirdek)
-- Disk: Minimum 20GB SSD (Önerilen: 50GB SSD)
-- Port Gereksinimleri:
+- RAM: Minimum 4GB (Recommended: 8GB)
+- CPU: Minimum 2 cores (Recommended: 4 cores)
+- Disk: Minimum 20GB SSD (Recommended: 50GB SSD)
+- Port Requirements:
   - 80/443: HTTP/HTTPS
   - 5432: PostgreSQL
   - 8000: Kong API Gateway
   - 9000: Storage API
   - 4000: Realtime API
 
-## Hata Ayıklama
+## Troubleshooting
 
-### Sık Karşılaşılan Hatalar
+### Common Errors
 
-1. SSL Sertifika Hataları:
+1. SSL Certificate Errors:
 
 ```bash
 docker logs supabase-traefik
 ```
 
-2. Veritabanı Bağlantı Hataları:
+2. Database Connection Errors:
 
 ```bash
 docker logs supabase-db
 ```
 
-3. API Gateway Hataları:
+3. API Gateway Errors:
 
 ```bash
 docker logs supabase-kong
 ```
 
-### Çözüm Önerileri
+### Solution Suggestions
 
-1. SSL Sertifika Sorunları:
-   - DNS kayıtlarını kontrol edin
-   - Cloudflare SSL modunu doğrulayın
-2. Veritabanı Sorunları:
-   - PostgreSQL loglarını kontrol edin
-   - Disk alanını kontrol edin
-3. Bağlantı Sorunları:
-   - Port çakışmalarını kontrol edin
-   - Docker network ayarlarını kontrol edin
+1. SSL Certificate Issues:
+   - Check DNS records
+   - Verify Cloudflare SSL mode
+2. Database Issues:
+   - Check PostgreSQL logs
+   - Check disk space
+3. Connection Issues:
+   - Check port conflicts
+   - Check Docker network settings
 
-## Güvenlik Sıkılaştırma
+## Security Hardening
 
-1. Network Güvenliği:
+1. Network Security:
 
-   - İç ağ izolasyonu
-   - Reverse proxy güvenlik başlıkları
-   - Rate limiting kuralları
+   - Internal network isolation
+   - Reverse proxy security headers
+   - Rate limiting rules
 
-2. Veritabanı Güvenliği:
+2. Database Security:
 
-   - Rol tabanlı erişim kontrolü
-   - Şifreleme politikaları
+   - Role-based access control
+   - Encryption policies
    - Audit logging
 
-3. API Güvenliği:
-   - JWT token rotasyonu
-   - API key yönetimi
-   - Request/Response validasyonu
+3. API Security:
+   - JWT token rotation
+   - API key management
+   - Request/Response validation
 
-## Katkıda Bulunma
+## Contributing
 
-Bu projeyi açık kaynak olarak paylaşıyorum. Self-hosted Supabase kurmak isteyen geliştiriciler için bir başlangıç noktası olmasını umuyorum. Issues ve Pull Request'lere açığım.
+I'm sharing this project as open source. I hope it serves as a starting point for anyone wanting to self-host Supabase. I'm open to issues and Pull Requests.
 
-## Lisans
+## License
 
-MIT License - Detaylar için LICENSE dosyasına bakın.
+MIT License - See LICENSE file for details.
 
-## Destek
+## Support
 
-Sorularınız ve sorunlarınız için lütfen [Supabase GitHub Issues](https://github.com/supabase/supabase/issues) sayfasını kullanın.
+Please use the [Supabase GitHub Issues](https://github.com/supabase/supabase/issues) page for your questions and issues.
