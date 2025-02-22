@@ -5,6 +5,8 @@ on:
     branches:
       - prod
     paths-ignore:
+      - "reset.sh"
+      - "makefile"
       - "**.md"
       - "docs/**"
       - ".github/**"

@@ -30,7 +30,10 @@ log:
 
 # Container Listesi
 ps:
-	docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}" -a
+	docker ps --format "\nNames: {{.Names}} \nID: {{.ID}} \nSize: {{.Size}} \nStatus: {{.Status}} \nPorts: {{.Ports}} " | grep -A 3 "Names: api-trigger-tid-dev "
+
+ps-prod:
+	docker ps --format "\nNames: {{.Names}} \nID: {{.ID}} \nSize: {{.Size}} \nStatus: {{.Status}} \nPorts: {{.Ports}} " | grep -A 3 "Names: api-trigger-tid "
 
 # Düzeltme
 fix:
