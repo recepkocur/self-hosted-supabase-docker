@@ -4,7 +4,7 @@
 
 This project is a Docker-based infrastructure project prepared for running Supabase self-hosted on your own VPS server. It allows you to run all core features of Supabase under your own control.
 
-## Translations (https://github.com/supabase/supabase?tab=readme-ov-file#translations)
+## Translations
 
 - [Türkçe Dokümantasyon](README.tr.md)
 - [English Documentation](README.en.md)
