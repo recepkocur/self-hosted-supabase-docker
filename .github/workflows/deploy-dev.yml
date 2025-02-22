@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - dev
+    paths-ignore:
+      - "**.md"
+      - "docs/**"
+      - ".github/**"
+    tags-ignore:
+      - "**"
 
 jobs:
   deploy:
