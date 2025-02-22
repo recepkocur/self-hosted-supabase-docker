@@ -1,5 +1,7 @@
 # Self-Hosted Supabase Docker
 
+[🇹🇷 Türkçe](README-TR.md)
+
 > Last Update: 17.02.2025
 
 This project is a Docker-based infrastructure project prepared for running Supabase self-hosted on your own VPS server. It allows you to run all core features of Supabase under your own control.
