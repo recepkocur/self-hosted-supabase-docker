@@ -1,8 +1,6 @@
 BEGIN;
   -- Create pg_net extension
   CREATE EXTENSION IF NOT EXISTS pg_net SCHEMA extensions;
-  -- Create pgsql-http extension
-  CREATE EXTENSION IF NOT EXISTS http SCHEMA extensions;
   -- Create supabase_functions schema
   CREATE SCHEMA supabase_functions AUTHORIZATION supabase_admin;
   GRANT USAGE ON SCHEMA supabase_functions TO postgres, anon, authenticated, service_role;

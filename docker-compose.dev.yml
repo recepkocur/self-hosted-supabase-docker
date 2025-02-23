@@ -471,8 +471,6 @@ services:
       - ./volumes/db/pooler.sql:/docker-entrypoint-initdb.d/migrations/99-pooler.sql:Z
       # Use named volume to persist pgsodium decryption key between restarts
       - db-config:/etc/postgresql-custom
-      # Changes required for pgsql-http extension
-      - ./volumes/db/pgsql-http.sql:/docker-entrypoint-initdb.d/init-scripts/99-pgsql-http.sql:Z
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres", "-h", "localhost"]
       interval: 5s
