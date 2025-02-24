@@ -27,7 +27,7 @@ log:
 
 # Container Listesi
 ps:
-	watch -n 2 'docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Size}}\t{{.Ports}}\t{{.Networks}}" | grep sup-'
+	watch -n 2 'docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Size}}\t{{.Ports}}" | grep sup-'
 
 # Düzeltme
 fix:
