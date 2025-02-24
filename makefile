@@ -1,8 +1,5 @@
 # Last Update: 2025.02.17
 
-# Proje Adı
-project_name = sup-
-
 # Yeniden Başlat
 restart:
 	docker compose down -v --remove-orphans
@@ -26,11 +23,11 @@ clean:
 
 # Log
 log:
-	docker logs $(project_name)studio -f
+	docker logs sup-studio -f
 
 # Container Listesi
 ps:
-	docker ps --format "\nNames: {{.Names}} \nID: {{.ID}} \nSize: {{.Size}} \nStatus: {{.Status}} \nPorts: {{.Ports}} " | grep -A 3 "Names: $(project_name)"
+	watch -n 2 'docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Size}}\t{{.Ports}}\t{{.Networks}}" | grep sup-'
 
 # Düzeltme
 fix:
