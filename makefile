@@ -1,7 +1,7 @@
 # Last Update: 2025.02.17
 
 # Proje Adı
-project_name = "sup-"
+project_name = sup-
 
 # Yeniden Başlat
 restart:
