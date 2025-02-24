@@ -30,7 +30,7 @@ log:
 
 # Container Listesi
 ps:
-	docker ps --format "\nNames: {{.Names}} \nID: {{.ID}} \nSize: {{.Size}} \nStatus: {{.Status}} \nPorts: {{.Ports}} " | grep -A 3 "Names: $(project_name) "
+	docker ps --format "\nNames: {{.Names}} \nID: {{.ID}} \nSize: {{.Size}} \nStatus: {{.Status}} \nPorts: {{.Ports}} " | grep -A 3 "Names: $(project_name)"
 
 # Düzeltme
 fix:
