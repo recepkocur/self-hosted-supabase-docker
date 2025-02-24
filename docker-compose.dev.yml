@@ -9,7 +9,7 @@ name: supabase
 
 services:
   studio:
-    container_name: supabase-studio
+    container_name: sup-studio
     image: supabase/studio:20250113-83c9420
     restart: unless-stopped
     networks:
@@ -51,7 +51,7 @@ services:
       # NEXT_ANALYTICS_BACKEND_PROVIDER: bigquery
 
   kong:
-    container_name: supabase-kong
+    container_name: sup-kong
     image: kong:2.8.1
     restart: unless-stopped
     networks:
@@ -87,7 +87,7 @@ services:
     entrypoint: bash -c 'eval "echo \"$$(cat ~/temp.yml)\"" > ~/kong.yml && /docker-entrypoint.sh kong docker-start'
 
   auth:
-    container_name: supabase-auth
+    container_name: sup-auth
     image: supabase/gotrue:v2.167.0
     restart: unless-stopped
     networks:
@@ -180,7 +180,7 @@ services:
       # GOTRUE_HOOK_SEND_EMAIL_SECRETS: "v1,whsec_VGhpcyBpcyBhbiBleGFtcGxlIG9mIGEgc2hvcnRlciBCYXNlNjQgc3RyaW5n"
 
   rest:
-    container_name: supabase-rest
+    container_name: sup-rest
     image: postgrest/postgrest:v12.2.0
     restart: unless-stopped
     networks:
@@ -211,7 +211,7 @@ services:
 
   realtime:
     # This container name looks inconsistent but is correct because realtime constructs tenant id by parsing the subdomain
-    container_name: realtime-dev.supabase-realtime
+    container_name: sup-realtime-dev
     image: supabase/realtime:v2.34.7
     restart: unless-stopped
     networks:
@@ -266,7 +266,7 @@ services:
 
   # To use S3 backed storage: docker compose -f docker-compose.yml -f docker-compose.s3.yml up
   storage:
-    container_name: supabase-storage
+    container_name: sup-storage
     image: supabase/storage-api:v1.14.5
     restart: unless-stopped
     networks:
@@ -319,7 +319,7 @@ services:
       IMGPROXY_URL: http://imgproxy:5001
 
   imgproxy:
-    container_name: supabase-imgproxy
+    container_name: sup-imgproxy
     image: darthsim/imgproxy:v3.8.0
     restart: unless-stopped
     networks:
@@ -338,7 +338,7 @@ services:
       IMGPROXY_ENABLE_WEBP_DETECTION: ${IMGPROXY_ENABLE_WEBP_DETECTION}
 
   meta:
-    container_name: supabase-meta
+    container_name: sup-meta
     image: supabase/postgres-meta:v0.84.2
     restart: unless-stopped
     networks:
@@ -366,7 +366,7 @@ services:
       PG_META_DB_PASSWORD: ${POSTGRES_PASSWORD}
 
   functions:
-    container_name: supabase-edge-functions
+    container_name: sup-functions
     image: supabase/edge-runtime:v1.67.0
     restart: unless-stopped
     networks:
@@ -395,7 +395,7 @@ services:
     command: ["start", "--main-service", "/home/deno/functions/main"]
 
   analytics:
-    container_name: supabase-analytics
+    container_name: sup-analytics
     image: supabase/logflare:1.4.0
     restart: unless-stopped
     networks:
@@ -448,7 +448,7 @@ services:
 
   # Comment out everything below this point if you are using an external Postgres database
   db:
-    container_name: supabase-db
+    container_name: sup-db
     image: supabase/postgres:15.8.1.020
     restart: unless-stopped
     networks:
@@ -498,7 +498,7 @@ services:
       ]
 
   vector:
-    container_name: supabase-vector
+    container_name: sup-vector
     image: timberio/vector:0.28.1-alpine
     restart: unless-stopped
     networks:
@@ -525,7 +525,7 @@ services:
 
   # Update the DATABASE_URL if you are using an external Postgres database
   supavisor:
-    container_name: supabase-pooler
+    container_name: sup-pooler
     image: supabase/supavisor:1.1.56
     restart: unless-stopped
     networks:

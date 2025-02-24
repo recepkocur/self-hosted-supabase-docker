@@ -1,7 +1,7 @@
 # Last Update: 2025.02.17
 
 # Proje Adı
-project_name = supabase
+project_name = "sup-"
 
 # Yeniden Başlat
 restart:
@@ -26,11 +26,11 @@ clean:
 
 # Log
 log:
-	docker logs $(project_name) -f
+	docker logs $(project_name)studio -f
 
 # Container Listesi
 ps:
-	docker ps --format "\nNames: {{.Names}} \nID: {{.ID}} \nSize: {{.Size}} \nStatus: {{.Status}} \nPorts: {{.Ports}} "
+	docker ps --format "\nNames: {{.Names}} \nID: {{.ID}} \nSize: {{.Size}} \nStatus: {{.Status}} \nPorts: {{.Ports}} " | grep -A 3 "Names: $(project_name) "
 
 # Düzeltme
 fix:
