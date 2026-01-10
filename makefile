@@ -31,7 +31,7 @@ ps:
 
 # Düzeltme
 fix:
-	docker network create --driver bridge proxy
+	docker network create --driver bridge proxy || true
 
 # No Cache
 cache:
